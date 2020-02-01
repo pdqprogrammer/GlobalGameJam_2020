@@ -11,12 +11,15 @@ public class PlayerController : MonoBehaviour
     public float gravityModifier = 10.0f;
 
     public bool onGround = true;
-    public bool touchingPull = false;
+
+    private bool grabbing = false;
+    private GameObject nearPullObject = null;
 
     private float jumpApexY;
     private float jumpStartY;
     private float jumpTimeStart;
     private bool jumpAttackApex;
+    //private float yDown;
 
     Rigidbody rb;
 
@@ -32,18 +35,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && onGround)
+        if (!onGround)
+            return;
+
+        if (Input.GetButtonDown("Jump") && !grabbing)
         {
             PlayerJump();
             onGround = false;
         }
 
-        if (Input.GetButtonDown ("Grab"))
+        if (Input.GetButtonDown ("Grab") && nearPullObject != null)
         {
-            //PlayerRelease();
+            PlayerGrab();
         }
 
-        if (Input.GetButtonUp ("Grab"))
+        if (Input.GetButtonUp ("Grab") && grabbing)
         {
             PlayerRelease();
         }
@@ -82,15 +88,19 @@ public class PlayerController : MonoBehaviour
         jumpStartY = transform.position.y;
         jumpApexY = jumpStartY + jumpForce;
         jumpAttackApex = true;
-        //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-        //rb.AddForce(transform.TransformDirection(Vector3.up) * jumpForce * 10);
-        //rb.velocity += new Vector3(0, jumpForce, 0);
-        //rb.velocity += jumpForce * Vector3.up;
+    }
+
+    private void PlayerGrab()
+    {
+        nearPullObject.transform.parent = this.transform;
+        grabbing = true;
     }
 
     private void PlayerRelease()
     {
         //add functionality for letting go of an object currently held onto
+        nearPullObject.transform.parent = null;
+        grabbing = false;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -107,7 +117,8 @@ public class PlayerController : MonoBehaviour
         //check if touching pullable object
         if (collision.gameObject.tag.Equals("PullableObject"))
         {
-            touchingPull = true;
+            if (!grabbing)
+                nearPullObject = collision.gameObject;
         }
     }
 
@@ -116,7 +127,8 @@ public class PlayerController : MonoBehaviour
         //check if not touching pullable object when not pulling
         if (collision.gameObject.tag.Equals("PullableObject"))
         {
-            touchingPull = false;
+            if (!grabbing)
+                nearPullObject = null;
         }
     }
 }
