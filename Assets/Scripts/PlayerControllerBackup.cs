@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerControllerBackup : MonoBehaviour
 {
     //player settings
     public float playerSpeed = 3.0f;
@@ -33,11 +32,6 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
 
-        if (Input.GetButtonDown("Grab"))
-        {
-            PlayerRelease();
-        }
-
         if (Input.GetButtonUp("Grab"))
         {
             PlayerRelease();
@@ -51,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed;
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * playerSpeed, 0, Input.GetAxis("Vertical") * playerSpeed);
     }
 
     private void PlayerJump()
