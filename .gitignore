@@ -4,3 +4,4 @@ Logs/
 Builds/
 Build/
 *.swp
+.vs/
