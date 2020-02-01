@@ -69,8 +69,3 @@ public class EnemyMovementScript : MonoBehaviour
         }
     }
 }
-
-public class EnemyArrays
-{
-    public float[] enemyArrayValues;
-}

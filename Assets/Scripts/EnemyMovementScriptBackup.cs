@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class EnemyMovementScript : MonoBehaviour
+public class EnemyMovementScriptBackup : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
     public float changeDirectionTime = 3.0f;
@@ -68,9 +68,4 @@ public class EnemyMovementScript : MonoBehaviour
             currDir = 0;
         }
     }
-}
-
-public class EnemyArrays
-{
-    public float[] enemyArrayValues;
 }
