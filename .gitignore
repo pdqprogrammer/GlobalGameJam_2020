@@ -1,7 +1,14 @@
-Temp/
 Library/
-Logs/
-Builds/
+Temp/
+obj/
 Build/
+Builds/
+Logs/
+
 *.swp
 .vs/
+.gradle/
+
+*.csproj
+*.sln
+*.unityproj
