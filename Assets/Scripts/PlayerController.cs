@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviour
 {
     //player settings
     public float playerSpeed = 3.0f;
-    public float jumpForce = 250.0f;
+    public float jumpForce = 3.0f;
     public float gravityModifier = 10.0f;
 
     public bool onGround = true;
     public bool touchingPull = false;
+
+    private float jumpApexY;
+    private float jumpStartY;
+    private float jumpTimeStart;
+    private bool jumpAttackApex;
 
     Rigidbody rb;
 
@@ -33,12 +38,12 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
 
-        if (Input.GetButtonDown("Grab"))
+        if (Input.GetButtonDown ("Grab"))
         {
-            PlayerRelease();
+            //PlayerRelease();
         }
 
-        if (Input.GetButtonUp("Grab"))
+        if (Input.GetButtonUp ("Grab"))
         {
             PlayerRelease();
         }
@@ -47,6 +52,23 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         PlayerMove();
+
+        if (jumpAttackApex)
+        {
+            float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
+            if (elapsedTime == 1.0f)
+            {
+                jumpAttackApex = false;
+            }
+
+            Vector3 startPos = transform.position;
+            startPos.y = jumpStartY;
+
+            Vector3 endPos = transform.position;
+            endPos.y = jumpApexY;
+
+            transform.position = Vector3.Lerp (startPos, endPos, elapsedTime);
+        }
     }
 
     private void PlayerMove()
@@ -56,7 +78,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump()
     {
-        rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+        jumpTimeStart = Time.time;
+        jumpStartY = transform.position.y;
+        jumpApexY = jumpStartY + jumpForce;
+        jumpAttackApex = true;
+        //rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         //rb.AddForce(transform.TransformDirection(Vector3.up) * jumpForce * 10);
         //rb.velocity += new Vector3(0, jumpForce, 0);
         //rb.velocity += jumpForce * Vector3.up;
