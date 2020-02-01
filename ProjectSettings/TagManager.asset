@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Enemy
   - PullableObject
+  - Slider
+  - MovePoints
+  - BounceObject
   layers:
   - Default
   - TransparentFX

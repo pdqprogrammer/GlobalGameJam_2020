@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     private float jumpApexY;
     private float jumpStartY;
     private float jumpTimeStart;
+
+    public float maxSlideMultiplier = 2.0f;
+    public float currSlideMultiplier = 1.0f;
+
     enum JumpEnvelope_t
     {
         jmpATTACK,
@@ -39,6 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
+        jumpEnvelope = JumpEnvelope_t.jmpGROUNDED;
     }
 
     // Update is called once per frame
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed;
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
     }
 
     private void PlayerJump()
@@ -146,6 +151,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Enemy"))
         {
             //add behavior for hits
+            Debug.Log("Touched the enemy");
         }
 
         //check if touching pullable object
@@ -153,6 +159,12 @@ public class PlayerController : MonoBehaviour
         {
             if (!grabbing)
                 nearPullObject = collision.gameObject;
+        }
+
+        //
+        if (collision.gameObject.tag.Equals("BounceObject"))
+        {
+            PlayerJump();
         }
     }
 
@@ -163,6 +175,23 @@ public class PlayerController : MonoBehaviour
         {
             if (!grabbing)
                 nearPullObject = null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //may need to move to trigger
+        if (other.gameObject.tag.Equals("Slider"))
+        {
+            currSlideMultiplier = maxSlideMultiplier;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Slider"))
+        {
+            currSlideMultiplier = 1.0f;
         }
     }
 }
