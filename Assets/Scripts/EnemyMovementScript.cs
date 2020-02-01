@@ -2,45 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody))]
 public class EnemyMovementScript : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
     public float changeDirectionTime = 3.0f;
-
-    //use for controlling enemy movement direction
-    private float enemyVertDirection = 0.0f;
-    private float enemyHoriDirection = 0.0f;
-
-    private Rigidbody rb;
+    public float rotationSpeed = 3.0f;
 
     private float directionTimer = 0.0f;
+
+    public bool isRotating = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        directionTimer += Time.deltaTime;
+        
 
         if(directionTimer >= changeDirectionTime)
         {
             directionTimer = 0;
             Debug.Log("add code here for changing direction");
+
+        }
+
+        if (!isRotating)
+        {
+            directionTimer += Time.deltaTime;
+            transform.position += Vector3.forward * enemySpeed * Time.deltaTime;
+        } 
+        else
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(90, Vector3.up), Time.deltaTime * rotationSpeed);
         }
     }
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * enemySpeed, 0, Input.GetAxis("Vertical") * enemySpeed);
-    }
-
-    private void ChangeDirection()
-    {
-        //code to change enemy movement direction
+       
     }
 }

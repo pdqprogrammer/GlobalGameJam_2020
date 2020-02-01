@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float gravityModifier = 10.0f;
 
     public bool onGround = true;
+    public bool touchingPull = false;
 
     Rigidbody rb;
 
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * playerSpeed, 0, Input.GetAxis("Vertical") * playerSpeed);
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed;
     }
 
     private void PlayerJump()
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         //rb.AddForce(transform.TransformDirection(Vector3.up) * jumpForce * 10);
         //rb.velocity += new Vector3(0, jumpForce, 0);
-        rb.velocity += jumpForce * Vector3.up;
+        //rb.velocity += jumpForce * Vector3.up;
     }
 
     private void PlayerRelease()
@@ -75,15 +76,16 @@ public class PlayerController : MonoBehaviour
         //check if touching pullable object
         if (collision.gameObject.tag.Equals("PullableObject"))
         {
-            if (Input.GetButton("Grab"))
-            {
-                //add object as child to move with player
-            }
+            touchingPull = true;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         //check if not touching pullable object when not pulling
+        if (collision.gameObject.tag.Equals("PullableObject"))
+        {
+            touchingPull = false;
+        }
     }
 }
