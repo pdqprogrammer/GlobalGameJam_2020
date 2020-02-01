@@ -2,45 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(GameObject))]
 public class EnemyMovementScript : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
     public float changeDirectionTime = 3.0f;
+    public float rotationSpeed = 3.0f;
 
-    //use for controlling enemy movement direction
-    private float enemyVertDirection = 0.0f;
-    private float enemyHoriDirection = 0.0f;
+    public bool isRotating = false;
 
-    private Rigidbody rb;
+    private float defaultY;
 
-    private float directionTimer = 0.0f;
+    public GameObject[] MovePoints;
+
+    GameObject MoveTowardObject;
+
+    int currMovePoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        currMovePoint = 0;
+        MoveTowardObject = MovePoints[0];
+        defaultY = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        directionTimer += Time.deltaTime;
+        Vector3 movementVector = Vector3.MoveTowards(transform.position, MoveTowardObject.transform.position, Time.deltaTime * enemySpeed);
+        movementVector.y = defaultY;
 
-        if(directionTimer >= changeDirectionTime)
-        {
-            directionTimer = 0;
-            Debug.Log("add code here for changing direction");
-        }
+        transform.position = movementVector;
     }
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * enemySpeed, 0, Input.GetAxis("Vertical") * enemySpeed);
+       
     }
 
-    private void ChangeDirection()
+    private void OnTriggerEnter(Collider other)
     {
-        //code to change enemy movement direction
+        if(other.gameObject == MovePoints[currMovePoint])
+        {
+            currMovePoint++;
+
+            if (currMovePoint >= MovePoints.Length)
+                currMovePoint = 0;
+
+            MoveTowardObject = MovePoints[currMovePoint];
+        }
     }
 }
