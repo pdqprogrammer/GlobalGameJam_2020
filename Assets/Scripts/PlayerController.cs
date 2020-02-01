@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
-        jumpEnvelope = JumpEnvelope_t.jmpGROUNDED;
     }
 
     // Update is called once per frame
@@ -138,7 +137,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerRelease()
     {
-        //add functionality for letting go of an object currently held onto
         nearPullObject.transform.parent = null;
         grabbing = false;
     }
