@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && !grabbing)
         {
             PlayerJump();
-            onGround = false;
         }
 
         if (Input.GetButtonDown ("Grab") && nearPullObject != null)
@@ -121,6 +120,8 @@ public class PlayerController : MonoBehaviour
         jumpApexY = jumpStartY + jumpForce;
         jumpEnvelope = JumpEnvelope_t.jmpATTACK;
         rb.useGravity = false;
+
+        onGround = false;
     }
 
     private void PlayerGrab()
