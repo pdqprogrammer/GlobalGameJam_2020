@@ -15,11 +15,20 @@ public class PlayerController : MonoBehaviour
     private bool grabbing = false;
     private GameObject nearPullObject = null;
 
+    public float jumpFallAcceleration = 0.3f;
+
     private float jumpApexY;
     private float jumpStartY;
     private float jumpTimeStart;
-    private bool jumpAttackApex;
-    //private float yDown;
+    enum JumpEnvelope_t
+    {
+        jmpATTACK,
+        jmpSUSTAIN,
+        jmpFALL,
+        jmpGROUNDED,
+    };
+    JumpEnvelope_t jumpEnvelope;
+    private float jumpFallSpeed = 0;
 
     Rigidbody rb;
 
@@ -59,12 +68,14 @@ public class PlayerController : MonoBehaviour
     {
         PlayerMove();
 
-        if (jumpAttackApex)
+        switch (jumpEnvelope)
         {
+        case JumpEnvelope_t.jmpATTACK:
             float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
             if (elapsedTime == 1.0f)
             {
-                jumpAttackApex = false;
+                jumpEnvelope = JumpEnvelope_t.jmpFALL;
+                jumpFallSpeed = 0.0f;
             }
 
             Vector3 startPos = transform.position;
@@ -74,6 +85,16 @@ public class PlayerController : MonoBehaviour
             endPos.y = jumpApexY;
 
             transform.position = Vector3.Lerp (startPos, endPos, elapsedTime);
+            break;
+        case JumpEnvelope_t.jmpFALL:
+            if (onGround)
+            {
+                rb.useGravity = true;
+                break;
+            }
+            jumpFallSpeed += Time.deltaTime * jumpFallAcceleration;
+            transform.position -= new Vector3 (0, jumpFallSpeed, 0);
+            break;
         }
     }
 
@@ -87,7 +108,8 @@ public class PlayerController : MonoBehaviour
         jumpTimeStart = Time.time;
         jumpStartY = transform.position.y;
         jumpApexY = jumpStartY + jumpForce;
-        jumpAttackApex = true;
+        jumpEnvelope = JumpEnvelope_t.jmpATTACK;
+        rb.useGravity = false;
     }
 
     private void PlayerGrab()
