@@ -53,11 +53,6 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
 
-        if (Input.GetButtonUp ("Jump") && jumpEnvelope == JumpEnvelope_t.jmpSUSTAIN)
-        {
-            jumpEnvelope = JumpEnvelope_t.jmpFALL;
-        }
-
         if (Input.GetButtonDown ("Grab") && nearPullObject != null)
         {
             PlayerGrab();
