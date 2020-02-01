@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
 
+    //
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +32,9 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
 
-        if (Input.GetButtonDown("Grab"))
+        if (Input.GetButtonUp("Grab"))
         {
-            PlayerGrab();
+            PlayerRelease();
         }
     }
 
@@ -54,9 +56,9 @@ public class PlayerController : MonoBehaviour
         rb.velocity += jumpForce * Vector3.up;
     }
 
-    private void PlayerGrab()
+    private void PlayerRelease()
     {
-        //add functionality for pushing and pulling
+        //add functionality for letting go of an object currently held onto
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -64,5 +66,24 @@ public class PlayerController : MonoBehaviour
         //collision checks
         if (collision.gameObject.tag.Equals("Ground"))
             onGround = true;
+
+        if (collision.gameObject.tag.Equals("Enemy"))
+        {
+            //add behavior for hits
+        }
+
+        //check if touching pullable object
+        if (collision.gameObject.tag.Equals("PullableObject"))
+        {
+            if (Input.GetButton("Grab"))
+            {
+                //add object as child to move with player
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        //check if not touching pullable object when not pulling
     }
 }
