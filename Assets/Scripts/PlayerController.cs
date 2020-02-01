@@ -24,10 +24,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //rb.velocity = new Vector3(Mathf.Lerp(0, Input.GetAxis("Horizontal") * playerSpeed, 0.8f), 0, Mathf.Lerp(0, Input.GetAxis("Vertical") * playerSpeed, 0.8f));
-
-        PlayerMove();
-
         if (Input.GetButtonDown("Jump") && onGround)
         {
             PlayerJump();
@@ -40,15 +36,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        PlayerMove();
+    }
+
     private void PlayerMove()
     {
-        rb.AddForce(Vector3.right * Input.GetAxis("Horizontal") * playerSpeed);
-        rb.AddForce(Vector3.forward * Input.GetAxis("Vertical") * playerSpeed);
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * playerSpeed, 0, Input.GetAxis("Vertical") * playerSpeed);
     }
 
     private void PlayerJump()
     {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+        //rb.AddForce(transform.TransformDirection(Vector3.up) * jumpForce * 10);
+        //rb.velocity += new Vector3(0, jumpForce, 0);
+        rb.velocity += jumpForce * Vector3.up;
     }
 
     private void PlayerGrab()
