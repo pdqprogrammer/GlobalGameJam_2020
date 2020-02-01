@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour
         jmpFALL,
         jmpGROUNDED,
     };
-    JumpEnvelope_t jumpEnvelope;
+
+    private JumpEnvelope_t jumpEnvelope = JumpEnvelope_t.jmpFALL;
     private float jumpFallSpeed = 0;
 
     Rigidbody rb;
