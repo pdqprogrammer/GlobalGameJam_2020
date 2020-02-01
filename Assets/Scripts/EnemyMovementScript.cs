@@ -3,55 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(GameObject))]
 public class EnemyMovementScript : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
     public float changeDirectionTime = 3.0f;
     public float rotationSpeed = 3.0f;
 
-    public float[,] directionSettings =
-    {
-        {1.0f, 0.0f},
-        {0.0f, -1.0f},
-        {-1.0f, 0.0f},
-        {0.0f, 1.0f}
-    };
-
-    public int currDir = 0;
-
-    private float directionTimer = 0.0f;
-
     public bool isRotating = false;
 
-    private float originalRotation = 0.0f;
+    private float defaultY;
 
-    //vert movement
-    //hor movement
-    private float horizontalDir = 1.0f;
-    private float verticalDir = 0.0f;
+    public GameObject[] MovePoints;
 
-    Rigidbody rb;
+    GameObject MoveTowardObject;
+
+    int currMovePoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        currMovePoint = 0;
+        MoveTowardObject = MovePoints[0];
+        defaultY = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector3(directionSettings[currDir , 0], 0, directionSettings[currDir , 1]) * enemySpeed;
+        Vector3 movementVector = Vector3.MoveTowards(transform.position, MoveTowardObject.transform.position, Time.deltaTime * enemySpeed);
+        movementVector.y = defaultY;
 
-        if (directionTimer >= changeDirectionTime)
-        {
-            directionTimer = 0;
-            Debug.Log("add code here for changing direction");
-            SetDirection();
-        }
-
-        directionTimer += Time.deltaTime;
-        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(originalRotation + 90, Vector3.up), Time.deltaTime * rotationSpeed);
+        transform.position = movementVector;
     }
 
     void FixedUpdate()
@@ -59,13 +42,16 @@ public class EnemyMovementScript : MonoBehaviour
        
     }
 
-    private void SetDirection()
+    private void OnTriggerEnter(Collider other)
     {
-        currDir++;
-
-        if(currDir >= directionSettings.GetLength(0))
+        if(other.gameObject == MovePoints[currMovePoint])
         {
-            currDir = 0;
+            currMovePoint++;
+
+            if (currMovePoint >= MovePoints.Length)
+                currMovePoint = 0;
+
+            MoveTowardObject = MovePoints[currMovePoint];
         }
     }
 }
