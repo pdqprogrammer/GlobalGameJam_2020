@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
 
+        if (Input.GetButtonUp ("Jump") && jumpEnvelope == JumpEnvelope_t.jmpSUSTAIN)
+        {
+            jumpEnvelope = JumpEnvelope_t.jmpFALL;
+        }
+
         if (Input.GetButtonDown ("Grab") && nearPullObject != null)
         {
             PlayerGrab();
@@ -74,7 +79,8 @@ public class PlayerController : MonoBehaviour
             float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
             if (elapsedTime == 1.0f)
             {
-                jumpEnvelope = JumpEnvelope_t.jmpFALL;
+                jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
+
                 jumpFallSpeed = 0.0f;
             }
 
@@ -87,12 +93,22 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp (startPos, endPos, elapsedTime);
             break;
         case JumpEnvelope_t.jmpFALL:
+            jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
+            goto case JumpEnvelope_t.jmpSUSTAIN;
+        case JumpEnvelope_t.jmpSUSTAIN:
+            jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
             if (onGround)
             {
                 rb.useGravity = true;
                 break;
             }
-            jumpFallSpeed += Time.deltaTime * jumpFallAcceleration;
+
+            // stop half speed drop
+            if (!Input.GetButton ("Jump"))
+            {
+                jumpEnvelope = JumpEnvelope_t.jmpFALL;
+            }
+
             transform.position -= new Vector3 (0, jumpFallSpeed, 0);
             break;
         }
