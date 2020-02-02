@@ -173,8 +173,8 @@ public class PlayerController : MonoBehaviour
         //collision checks
         if (collision.gameObject.tag.Equals("Ground"))
         {
-            if (!onGround)
-                currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+            //if (!onGround)
+              //  currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
             rb.useGravity = true;
             this.transform.parent = collision.transform;
