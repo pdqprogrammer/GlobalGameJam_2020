@@ -7,11 +7,6 @@ using UnityEngine;
 public class EnemyMovementScript : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
-    public float changeDirectionTime = 3.0f;
-    public float rotationSpeed = 3.0f;
-
-    public bool isRotating = false;
-
     private float defaultY;
 
     public GameObject[] MovePoints;
