@@ -130,12 +130,12 @@ public class PlayerController : MonoBehaviour
                     jumpEnvelope = JumpEnvelope_t.jmpFALL;
                 }
 
-                jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*1.5);
+                jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*1.5f);
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
             case JumpEnvelope_t.jmpLEDGEDROP:
                 jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
-                jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*1.5);
+                jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*1.5f);
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
         }
