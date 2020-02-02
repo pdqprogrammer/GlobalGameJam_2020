@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class GearBehaviourScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float rotationSpeed = 2.0f;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        float yRotation = gameObject.transform.rotation.y;
+        gameObject.transform.Rotate(0.0f, rotationSpeed, 0.0f, Space.Self);
     }
 }
