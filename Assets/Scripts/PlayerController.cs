@@ -27,6 +27,12 @@ public class PlayerController : MonoBehaviour
     private float currSlideMultiplier = 1.0f;
     private bool onSlic = false;
 
+    public AudioClip audioJump;
+    public AudioClip audioPull;
+    public AudioClip audioPain;
+    public AudioClip audioStep;
+    public AudioClip audioLand;
+
     private PlayerStatsScript playerStats;
 
     enum JumpEnvelope_t
@@ -169,6 +175,7 @@ public class PlayerController : MonoBehaviour
         rb.useGravity = false;
 
         onGround = false;
+        AudioSource.PlayClipAtPoint(audioJump, this.transform.position);
     }
 
     private void PlayerGrab()
@@ -178,6 +185,8 @@ public class PlayerController : MonoBehaviour
         nearPullObject.GetComponent<Rigidbody>().useGravity = false;
         grabObjConstraints = nearPullObject.GetComponent<Rigidbody>().constraints;
         nearPullObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+        AudioSource.PlayClipAtPoint (audioPull, this.transform.position);
 
         //Vector3 nearObjectPosition = nearPullObject.transform.position;
 
@@ -202,7 +211,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
             if (!onGround)
-              currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+            {
+                currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+                AudioSource.PlayClipAtPoint (audioLand, this.transform.position);
+            }
+
             onGround = true;
             rb.useGravity = true;
             this.transform.parent = collision.transform;
@@ -213,6 +226,7 @@ public class PlayerController : MonoBehaviour
             //add behavior for hits
             playerStats.DamagePlayer();
             Debug.Log("Touched the enemy. Lives: " + playerStats.GetHealth());
+            AudioSource.PlayClipAtPoint (audioPain, this.transform.position);
         }
 
         //check if touching pullable object
