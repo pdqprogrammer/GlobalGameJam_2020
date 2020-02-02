@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
             case JumpEnvelope_t.jmpLEDGEDROP:
-                jumpFallSpeed += Time.deltaTime * jumpFallAcceleration;
+                jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
                 jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*2);
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
@@ -247,7 +247,10 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
             if (jumpEnvelope != JumpEnvelope_t.jmpATTACK)
+            {
                 jumpEnvelope = JumpEnvelope_t.jmpLEDGEDROP;
+                jumpFallSpeed = 0;
+            }
 
             rb.useGravity = false;
             //onGround = false;
