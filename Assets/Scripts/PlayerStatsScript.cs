@@ -47,8 +47,15 @@ public class PlayerStatsScript : MonoBehaviour
         if (playerController.InAir())
         {
             airTime += Time.deltaTime;
-            if (airTime > 3.5f)
-                FallRespawn();
+            if (airTime > 2f && !hit)
+            {
+                if (currPlayerHealth > 0)
+                {
+                    FallRespawn();
+                    hit = true;
+                }
+            }
+             
         }
         else
         {

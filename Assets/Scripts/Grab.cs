@@ -4,31 +4,15 @@ using UnityEngine;
 
 public class Grab : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject canvas;
 
-    private Rigidbody rig;
-
-    private void OnTriggerEnter(Collider other)
+    void Update()
     {
-        if(other.gameObject.tag == "Player")
+        if (player.GetComponent<PlayerStatsScript>().GetHealth() <= 0)
         {
-           rig = other.gameObject.GetComponent<Rigidbody>();
+            Debug.Log(player.GetComponent<PlayerStatsScript>().GetHealth());
+            canvas.SetActive(true);
         }
-    }
-
-    private void OnTriggerStay(Collider collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            if (Input.GetKey(KeyCode.W))
-                rig.useGravity = false;
-            else
-                rig.useGravity = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Leaving trigger");
-        rig.useGravity = true;
     }
 }
