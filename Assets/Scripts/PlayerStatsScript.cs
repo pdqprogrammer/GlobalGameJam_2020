@@ -47,6 +47,12 @@ public class PlayerStatsScript : MonoBehaviour
         if (playerController.InAir())
         {
             airTime += Time.deltaTime;
+            if (airTime > 3.5f)
+                FallRespawn();
+        }
+        else
+        {
+            airTime = 0;
         }
     }
 
@@ -91,7 +97,8 @@ public class PlayerStatsScript : MonoBehaviour
 
     public void FallRespawn()
     {
-        transform.position = lastCheckPoint;
+        this.transform.position = lastCheckPoint;
+        currPlayerHealth--;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -107,8 +114,7 @@ public class PlayerStatsScript : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals ("Respawn"))
         {
-            this.transform.position = lastCheckPoint;
-            currPlayerHealth--;
+            FallRespawn();
         }
     }
 }

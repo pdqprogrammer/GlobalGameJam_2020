@@ -290,6 +290,6 @@ public class PlayerController : MonoBehaviour
 
     public bool InAir()
     {
-        return !onGround;
+        return !onGround || jumpEnvelope == JumpEnvelope_t.jmpLEDGEDROP;
     }
 }
