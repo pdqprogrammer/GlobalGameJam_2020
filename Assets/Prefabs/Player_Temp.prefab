@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 2157281805739442002}
   - component: {fileID: 2037986392}
   - component: {fileID: 2037986388}
+  - component: {fileID: 3381911976029101645}
   - component: {fileID: 1558991710}
   m_Layer: 0
   m_Name: Player_Temp
@@ -230,6 +231,21 @@ MonoBehaviour:
   audioPain: {fileID: 8300000, guid: c8452deae188b714f89ae08cb2303b11, type: 3}
   audioStep: {fileID: 8300000, guid: 82ceac6e53d97ac4d9a8d9464a731ec9, type: 3}
   audioLand: {fileID: 8300000, guid: 093a2565647d4bf4ea905248f4755841, type: 3}
+--- !u!114 &3381911976029101645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2157281805739442011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbecc989c8292b498b6cf0c2f8215e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMaxHealth: 3
+  maxInvincibleTime: 2
+  respawnHeight: 1
 --- !u!82 &1558991710
 AudioSource:
   m_ObjectHideFlags: 0
