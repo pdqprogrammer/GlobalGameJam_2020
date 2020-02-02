@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public float liftHeight = 0.3f;
 
-    public bool onGround = true;
+    public bool onGround = false;
 
     private bool grabbing = false;
     private GameObject nearPullObject = null;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         jmpLEDGEDROP,
     };
 
-    private JumpEnvelope_t jumpEnvelope = JumpEnvelope_t.jmpFALL;
+    private JumpEnvelope_t jumpEnvelope = JumpEnvelope_t.jmpLEDGEDROP;
     private float jumpFallSpeed = 0;
 
     Rigidbody rb;
@@ -88,7 +88,8 @@ public class PlayerController : MonoBehaviour
         switch (jumpEnvelope)
         {
             case JumpEnvelope_t.jmpATTACK:
-                float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
+                float ofAthirdSecond = (Time.time - jumpTimeStart) * 3;
+                float elapsedTime = Mathf.Min (Mathf.Log (ofAthirdSecond * 9 + 1, 10), 1.0f);
                 if (elapsedTime == 1.0f)
                 {
                     jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
@@ -123,10 +124,12 @@ public class PlayerController : MonoBehaviour
                     jumpEnvelope = JumpEnvelope_t.jmpFALL;
                 }
 
+                jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*2);
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
             case JumpEnvelope_t.jmpLEDGEDROP:
                 jumpFallSpeed += Time.deltaTime * jumpFallAcceleration;
+                jumpFallSpeed = Mathf.Min (jumpFallSpeed, playerSpeed*2);
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
         }
