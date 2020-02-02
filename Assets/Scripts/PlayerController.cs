@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
     private float jumpTimeStart;
 
     public float maxSlideMultiplier = 2.0f;
-    public float currSlideMultiplier = 1.0f;
+    private float currSlideMultiplier = 1.0f;
+    private bool onSlic = false;
 
     enum JumpEnvelope_t
     {
@@ -127,7 +128,7 @@ public class PlayerController : MonoBehaviour
             Vector3 reducedAirSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * (playerSpeed * 0.05f);
 
             rb.velocity += reducedAirSpeed;
-            rb.velocity = Vector3.ClampMagnitude (rb.velocity, playerSpeed);
+            rb.velocity = Vector3.ClampMagnitude (rb.velocity, playerSpeed * currSlideMultiplier);
         }
         else
         {
@@ -152,9 +153,9 @@ public class PlayerController : MonoBehaviour
         grabbing = true;
         nearPullObject.GetComponent<Rigidbody>().useGravity = false;
 
-        Vector3 nearObjectPosition = nearPullObject.transform.position;
+        //Vector3 nearObjectPosition = nearPullObject.transform.position;
 
-        nearPullObject.transform.position = nearObjectPosition;
+        //nearPullObject.transform.position = nearObjectPosition;
     }
 
     private void PlayerRelease()
@@ -169,7 +170,11 @@ public class PlayerController : MonoBehaviour
     {
         //collision checks
         if (collision.gameObject.tag.Equals("Ground"))
+        {
+            if (!onGround)
+                currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
+        }
 
         if (collision.gameObject.tag.Equals("Enemy"))
         {
@@ -207,10 +212,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //may need to move to trigger
         if (other.gameObject.tag.Equals("Slider"))
         {
             currSlideMultiplier = maxSlideMultiplier;
+            onSlic = true;
         }
     }
 
@@ -218,7 +223,11 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Slider"))
         {
-            currSlideMultiplier = 1.0f;
+            if (onGround)
+            {
+                currSlideMultiplier = 1.0f;
+            }
+            onSlic = false;
         }
     }
 }
