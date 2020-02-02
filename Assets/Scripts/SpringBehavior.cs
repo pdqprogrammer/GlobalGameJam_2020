@@ -11,7 +11,7 @@ public class SpringBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetButton("Grab"))
+        if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
         {
             Debug.Log("YOURE HOLDING AN OBJECT");
             if (other.gameObject.tag == "PullableObject")
@@ -28,14 +28,14 @@ public class SpringBehavior : MonoBehaviour
                 Destroy(Pin);
                 hiddenPin.SetActive(true);
 
-                hiddenPin.GetComponent<PinBehavior>().Bounce();
+                hiddenPin.GetComponent<PinBehavior>().Bounce(true);
             }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetButton("Grab"))
+        if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
         {
             Debug.Log("YOURE HOLDING AN OBJECT");
             if (other.gameObject.tag == "PullableObject")
@@ -52,7 +52,7 @@ public class SpringBehavior : MonoBehaviour
                 Destroy(Pin);
                 hiddenPin.SetActive(true);
 
-                hiddenPin.GetComponent<PinBehavior>().Bounce();
+                hiddenPin.GetComponent<PinBehavior>().Bounce(false);
             }
         }
     }
