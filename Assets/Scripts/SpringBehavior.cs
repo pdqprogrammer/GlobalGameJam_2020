@@ -11,13 +11,49 @@ public class SpringBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PullableObject")
+        if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
         {
-            Pin = other.gameObject;
-            Destroy(Pin);
-            hiddenPin.SetActive(true);
+            Debug.Log("YOURE HOLDING AN OBJECT");
+            if (other.gameObject.tag == "PullableObject")
+            {
+                Debug.Log("Dont start anim");
+            }
+        }
+        else
+        {
+            Debug.Log("YOURE NOT HOLDING AND OBJEECT");
+            if (other.gameObject.tag == "PullableObject")
+            {
+                Pin = other.gameObject;
+                Destroy(Pin);
+                hiddenPin.SetActive(true);
 
-            hiddenPin.GetComponent<PinBehavior>().Bounce();
+                hiddenPin.GetComponent<PinBehavior>().Bounce();
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
+        {
+            Debug.Log("YOURE HOLDING AN OBJECT");
+            if (other.gameObject.tag == "PullableObject")
+            {
+                Debug.Log("Dont start anim");
+            }
+        }
+        else
+        {
+            Debug.Log("YOURE NOT HOLDING AND OBJEECT");
+            if (other.gameObject.tag == "PullableObject")
+            {
+                Pin = other.gameObject;
+                Destroy(Pin);
+                hiddenPin.SetActive(true);
+
+                hiddenPin.GetComponent<PinBehavior>().Bounce();
+            }
         }
     }
 }

@@ -168,7 +168,10 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerRelease()
     {
-        nearPullObject.transform.parent = null;
+        if (nearPullObject != null)
+        {
+            nearPullObject.transform.parent = null;
+        }
         grabbing = false;
 
         nearPullObject.GetComponent<Rigidbody>().useGravity = true;
