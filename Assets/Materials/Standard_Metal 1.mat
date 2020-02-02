@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Standard_Metal
+  m_Name: Standard_Metal 1
   m_Shader: {fileID: -6465566751694194690, guid: 6de5ad9c9df0aba4f8d6bf8b2eaf2726,
     type: 3}
   m_ShaderKeywords: 
@@ -22,7 +22,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - Vector1_251EFFE9: 1
-    - Vector1_3D3DCE65: 0.2
-    - Vector1_8A3D5861: 0.5
+    - Vector1_3D3DCE65: 0.5
+    - Vector1_8A3D5861: 0.7
     m_Colors:
     - Color_1F3D213F: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0}
