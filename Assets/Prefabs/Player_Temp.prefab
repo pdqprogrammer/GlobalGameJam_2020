@@ -225,6 +225,11 @@ MonoBehaviour:
   onGround: 1
   jumpFallAcceleration: 1
   maxSlideMultiplier: 2
+  audioJump: {fileID: 8300000, guid: 8207ebe64ac48224d8be599d1084c11e, type: 3}
+  audioPull: {fileID: 8300000, guid: b25f5663fac346844bf9540a011b6ec0, type: 3}
+  audioPain: {fileID: 8300000, guid: c8452deae188b714f89ae08cb2303b11, type: 3}
+  audioStep: {fileID: 8300000, guid: 82ceac6e53d97ac4d9a8d9464a731ec9, type: 3}
+  audioLand: {fileID: 8300000, guid: 093a2565647d4bf4ea905248f4755841, type: 3}
 --- !u!82 &1558991710
 AudioSource:
   m_ObjectHideFlags: 0
