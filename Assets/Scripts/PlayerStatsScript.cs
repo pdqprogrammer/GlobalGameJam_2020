@@ -24,8 +24,8 @@ public class PlayerStatsScript : MonoBehaviour
         ResetHealth();
         ResetAirTime();
 
-        playerController = gameObject.GetComponent<PlayerController>();
-        lastCheckPoint = transform.position;
+        playerController = this.gameObject.GetComponent<PlayerController>();
+        lastCheckPoint = this.transform.position;
     }
 
     private void Update()
@@ -100,6 +100,15 @@ public class PlayerStatsScript : MonoBehaviour
         {
             lastCheckPoint = transform.position;
             lastCheckPoint.y += respawnHeight;
+        }
+    }
+
+    private void OnTriggerEnter (Collider collision)
+    {
+        if (collision.gameObject.tag.Equals ("Respawn"))
+        {
+            this.transform.position = lastCheckPoint;
+            currPlayerHealth--;
         }
     }
 }
