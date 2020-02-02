@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d686f9620fc6ea147bc80d1133102f30
+guid: 06338e896502c6f44a791433041f17ae
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GearB_extrudeFront_GearB_group1_gearBNoHoleMat
+      name: blinn1
     second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: gearBNoHoleMat
-    second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
+      name: lambert1
+    second: {fileID: 2100000, guid: 9f9db85967b8f174293d23cdd5a00e48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 9f9db85967b8f174293d23cdd5a00e48, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

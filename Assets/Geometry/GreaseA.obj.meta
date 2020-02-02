@@ -3,9 +3,14 @@ guid: cbff5f00f7843c041905837d2cf73c02
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GreaseMat
+    second: {fileID: 2100000, guid: eca5981cd45421a48bdf6395e81c9c07, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

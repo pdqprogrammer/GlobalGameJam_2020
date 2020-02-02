@@ -3,9 +3,19 @@ guid: 86208f75e3c6f684d92e36662fb2969f
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GearB_extrudeFront_GearB_group1_gearBMat
+    second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gearBMat
+    second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

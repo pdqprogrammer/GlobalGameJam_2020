@@ -3,9 +3,14 @@ guid: ac0dc09c40da88c48af4a092feadb524
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HoloGearMat
+    second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

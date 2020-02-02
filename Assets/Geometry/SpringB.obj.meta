@@ -3,9 +3,14 @@ guid: 878999ad0c2ec244e8798d32801a669d
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SpringB_MeshMat
+    second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

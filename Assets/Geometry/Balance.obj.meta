@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d686f9620fc6ea147bc80d1133102f30
+guid: 860cf1734318217449b23ed48670bf14
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,12 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: GearB_extrudeFront_GearB_group1_gearBNoHoleMat
-    second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: gearBNoHoleMat
+      name: balnceMat
     second: {fileID: 2100000, guid: 5053ea1148c20d542b121325b1f84103, type: 2}
   materials:
     materialImportMode: 1
