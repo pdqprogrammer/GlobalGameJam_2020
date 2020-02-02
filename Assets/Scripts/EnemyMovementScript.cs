@@ -53,5 +53,15 @@ public class EnemyMovementScript : MonoBehaviour
 
             MoveTowardObject = MovePoints[currMovePoint];
         }
+
+        if (other.gameObject.tag.Equals("PullableOBject"))
+        {
+            currMovePoint--;
+
+            if (currMovePoint < 0)
+                currMovePoint = MovePoints.Length - 1;
+
+            MoveTowardObject = MovePoints[currMovePoint];
+        }
     }
 }

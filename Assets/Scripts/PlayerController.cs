@@ -134,6 +134,11 @@ public class PlayerController : MonoBehaviour
     {
         nearPullObject.transform.parent = this.transform;
         grabbing = true;
+        nearPullObject.GetComponent<Rigidbody>().useGravity = false;
+
+        Vector3 nearObjectPosition = nearPullObject.transform.position;
+
+        nearPullObject.transform.position = nearObjectPosition;
     }
 
     private void PlayerRelease()
@@ -141,6 +146,8 @@ public class PlayerController : MonoBehaviour
         //add functionality for letting go of an object currently held onto
         nearPullObject.transform.parent = null;
         grabbing = false;
+
+        nearPullObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -159,7 +166,9 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("PullableObject"))
         {
             if (!grabbing)
+            {
                 nearPullObject = collision.gameObject;
+            }
         }
 
         //
@@ -175,7 +184,9 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("PullableObject"))
         {
             if (!grabbing)
+            {
                 nearPullObject = null;
+            }
         }
     }
 
