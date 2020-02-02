@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2524313709734514263, guid: 86208f75e3c6f684d92e36662fb2969f, type: 3}
+  - {fileID: 2100000, guid: 9f9db85967b8f174293d23cdd5a00e48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -137,7 +137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8110685368091920683, guid: 86208f75e3c6f684d92e36662fb2969f, type: 3}
+  - {fileID: 2100000, guid: 9f9db85967b8f174293d23cdd5a00e48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 636357539738121377}
   m_Layer: 0
   m_Name: GearB
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,9 +183,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8842617158239373505}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -67.232376, y: 14.540639, z: 68.84154}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 5, z: 10}
   m_Children:
   - {fileID: 4749320613938141850}
   - {fileID: 5573257361690305017}
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: babdcc30738b0724aad041ae221b9763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.5
+  rotationSpeed: -0.5
   isSpinning: 1
 --- !u!64 &636357539738121377
 MeshCollider:

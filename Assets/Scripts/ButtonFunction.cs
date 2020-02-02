@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonFunction : MonoBehaviour
 {
@@ -23,9 +24,14 @@ public class ButtonFunction : MonoBehaviour
         source.Play();
     }
 
-    //load level
+    public void PLAYGAME()
+    {
+        SceneManager.LoadScene(1);
+    }
 
-    //quit
-    //credits
-    
+    public void quit()
+    {
+        Application.Quit();
+    }
+
 }

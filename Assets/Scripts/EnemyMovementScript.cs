@@ -7,7 +7,10 @@ using UnityEngine;
 public class EnemyMovementScript : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
+    public float turnSpeed = 1.0f;
     private float defaultY;
+
+    public bool lockRotate = false;
 
     public GameObject[] MovePoints;
 
@@ -32,7 +35,15 @@ public class EnemyMovementScript : MonoBehaviour
         transform.position = movementVector;
 
         //transform.LookAt(MoveTowardObject.transform);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveTowardObject.transform.position.normalized), 0.05f);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveTowardObject.transform.position.normalized), 0.1f);
+
+        Vector3 relativePos = MoveTowardObject.transform.position - transform.position;
+        
+        if(lockRotate)
+            relativePos.y = 0.0f;
+
+        Quaternion toRotation = Quaternion.LookRotation(relativePos);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
     }
 
     void FixedUpdate()
@@ -51,8 +62,11 @@ public class EnemyMovementScript : MonoBehaviour
 
             MoveTowardObject = MovePoints[currMovePoint];
         }
+    }
 
-        if (other.gameObject.tag.Equals("PullableOBject"))
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("PullableOBject"))
         {
             currMovePoint--;
 
