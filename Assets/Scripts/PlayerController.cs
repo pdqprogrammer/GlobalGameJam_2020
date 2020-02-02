@@ -88,7 +88,8 @@ public class PlayerController : MonoBehaviour
         switch (jumpEnvelope)
         {
             case JumpEnvelope_t.jmpATTACK:
-                float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
+                float ofAthirdSecond = (Time.time - jumpTimeStart) * 3;
+                float elapsedTime = Mathf.Min (Mathf.Log (ofAthirdSecond * 9 + 1, 10), 1.0f);
                 if (elapsedTime == 1.0f)
                 {
                     jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
