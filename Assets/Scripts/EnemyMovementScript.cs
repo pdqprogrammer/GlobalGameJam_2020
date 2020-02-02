@@ -40,7 +40,7 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 relativePos = MoveTowardObject.transform.position - transform.position;
         
         if(lockRotate)
-            relativePos.y = transform.position.y;
+            relativePos.y = 0.0f;
 
         Quaternion toRotation = Quaternion.LookRotation(relativePos);
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
