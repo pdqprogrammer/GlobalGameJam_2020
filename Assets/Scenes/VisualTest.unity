@@ -223,7 +223,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: feba02d6f0dfe9e43884e8030432ef5a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.45
+      value: 6.36
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: feba02d6f0dfe9e43884e8030432ef5a,
         type: 3}
@@ -233,7 +233,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: feba02d6f0dfe9e43884e8030432ef5a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.24
+      value: 14.02
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: feba02d6f0dfe9e43884e8030432ef5a,
         type: 3}
@@ -294,12 +294,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: eca5981cd45421a48bdf6395e81c9c07, type: 2}
+      objectReference: {fileID: 2100000, guid: 4fceaae9322474941ba0585aab4d3cf9, type: 2}
     - target: {fileID: -927199367670048503, guid: feba02d6f0dfe9e43884e8030432ef5a,
         type: 3}
       propertyPath: m_Name
       value: GearA (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -232185434907113082, guid: feba02d6f0dfe9e43884e8030432ef5a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4fceaae9322474941ba0585aab4d3cf9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feba02d6f0dfe9e43884e8030432ef5a, type: 3}
 --- !u!1 &1089538808
