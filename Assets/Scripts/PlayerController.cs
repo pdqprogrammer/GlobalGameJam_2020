@@ -194,8 +194,8 @@ public class PlayerController : MonoBehaviour
         //collision checks
         if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
-            //if (!onGround)
-            //  currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+            if (!onGround)
+              currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
             rb.useGravity = true;
             this.transform.parent = collision.transform;
@@ -226,13 +226,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay (Collision collision)
     {
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
+        {
+            onGround = true;
+            rb.useGravity = true;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
-            //onGround = false;
+            if (jumpEnvelope != JumpEnvelope_t.jmpATTACK)
+                jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
+
+            onGround = false;
             this.transform.parent = null;
         }
 
