@@ -10,6 +10,8 @@ public class EnemyMovementScript : MonoBehaviour
     public float turnSpeed = 1.0f;
     private float defaultY;
 
+    public bool lockRotate = false;
+
     public GameObject[] MovePoints;
 
     GameObject MoveTowardObject;
@@ -36,6 +38,10 @@ public class EnemyMovementScript : MonoBehaviour
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveTowardObject.transform.position.normalized), 0.1f);
 
         Vector3 relativePos = MoveTowardObject.transform.position - transform.position;
+        
+        if(lockRotate)
+            relativePos.y = 0.0f;
+
         Quaternion toRotation = Quaternion.LookRotation(relativePos);
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
     }
