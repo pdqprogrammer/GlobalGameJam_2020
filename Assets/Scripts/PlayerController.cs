@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 3.0f;
     public float gravityModifier = 10.0f;
 
+    public float liftHeight = 0.3f;
+
     public bool onGround = true;
 
     private bool grabbing = false;
@@ -65,6 +67,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown ("Grab") && nearPullObject != null)
         {
             PlayerGrab();
+
+            Vector3 nearPullPos = nearPullObject.transform.position;
+            nearPullPos.y += liftHeight;
+
+            nearPullObject.transform.position = nearPullPos;
         }
 
         if (Input.GetButtonUp ("Grab") && grabbing)
