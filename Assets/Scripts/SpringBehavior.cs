@@ -15,15 +15,15 @@ public class SpringBehavior : MonoBehaviour
     {
         if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
         {
-            Debug.Log("YOURE HOLDING AN OBJECT");
+            //Debug.Log("YOURE HOLDING AN OBJECT");
             if (other.gameObject.tag == "PullableObject")
             {
-                Debug.Log("Dont start anim");
+                //Debug.Log("Dont start anim");
             }
         }
         else
         {
-            Debug.Log("YOURE NOT HOLDING AND OBJEECT");
+            //Debug.Log("YOURE NOT HOLDING AND OBJEECT");
             if (other.gameObject.tag == "PullableObject")
             {
                 Pin = other.gameObject;
@@ -31,7 +31,7 @@ public class SpringBehavior : MonoBehaviour
                 hiddenPin.SetActive(true);
 
                 hiddenPin.GetComponent<PinBehavior>().Bounce(true);
-                Debug.Log("DO THE THING");
+                //Debug.Log("DO THE THING");
                 if (doThing)
                 {
                     gameObject.GetComponent<DoThing>().TiggerTheThings();
@@ -45,15 +45,15 @@ public class SpringBehavior : MonoBehaviour
     {
         if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
         {
-            Debug.Log("YOURE HOLDING AN OBJECT");
+            //Debug.Log("YOURE HOLDING AN OBJECT");
             if (other.gameObject.tag == "PullableObject")
             {
-                Debug.Log("Dont start anim");
+                //Debug.Log("Dont start anim");
             }
         }
         else
         {
-            Debug.Log("YOURE NOT HOLDING AND OBJEECT");
+            //Debug.Log("YOURE NOT HOLDING AND OBJEECT");
             if (other.gameObject.tag == "PullableObject")
             {
                 Pin = other.gameObject;
@@ -61,7 +61,7 @@ public class SpringBehavior : MonoBehaviour
                 hiddenPin.SetActive(true);
 
                 hiddenPin.GetComponent<PinBehavior>().Bounce(false);
-                Debug.Log("DO THE THING");
+                //Debug.Log("DO THE THING");
                 if (doThing)
                 {
                     gameObject.GetComponent<DoThing>().TiggerTheThings();
