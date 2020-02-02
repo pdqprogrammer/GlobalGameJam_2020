@@ -123,7 +123,6 @@ public class PlayerController : MonoBehaviour
                 else
                     jumpFallSpeed += Time.deltaTime * jumpFallAcceleration / 2;
 
-
                 // stop half speed drop
                 if (!Input.GetButton("Jump"))
                 {
@@ -304,6 +303,9 @@ public class PlayerController : MonoBehaviour
 
     public bool InAir()
     {
+        if (jumpEnvelope == JumpEnvelope_t.jmpATTACK)
+            return false;
+
         return !onGround || jumpEnvelope == JumpEnvelope_t.jmpLEDGEDROP;
     }
 }

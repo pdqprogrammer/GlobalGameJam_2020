@@ -65,7 +65,7 @@ public class PlayerStatsScript : MonoBehaviour
     {
         if (!hit)
         {
-            currPlayerHealth--;
+            FallRespawn();
             hit = true;
         }
     }
