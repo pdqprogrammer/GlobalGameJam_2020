@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
                 currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
             rb.useGravity = true;
-            //this.transform.parent = collision.transform;
+            this.transform.parent = collision.transform;
         }
 
         if (collision.gameObject.tag.Equals("Enemy"))
@@ -207,8 +207,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Ground"))
         {
-            onGround = false;
-            //this.transform.parent = null;
+            //onGround = false;
+            this.transform.parent = null;
         }
 
         //check if not touching pullable object when not pulling
