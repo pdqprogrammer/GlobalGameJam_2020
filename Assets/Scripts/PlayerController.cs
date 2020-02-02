@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         PlayerMove();
+        PlayerRotate();//set  player rotation
 
         switch (jumpEnvelope)
         {
@@ -139,6 +140,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
+        }
+    }
+
+    private void PlayerRotate()
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (movement != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.2f);
         }
     }
 
