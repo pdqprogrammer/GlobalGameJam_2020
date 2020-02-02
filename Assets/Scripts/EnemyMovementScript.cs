@@ -30,6 +30,9 @@ public class EnemyMovementScript : MonoBehaviour
         movementVector.y = defaultY;
 
         transform.position = movementVector;
+
+        //transform.LookAt(MoveTowardObject.transform);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveTowardObject.transform.position.normalized), 0.05f);
     }
 
     void FixedUpdate()

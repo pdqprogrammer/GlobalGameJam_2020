@@ -83,11 +83,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         PlayerMove();
+        PlayerRotate();//set  player rotation
 
         switch (jumpEnvelope)
         {
             case JumpEnvelope_t.jmpATTACK:
-                float elapsedTime = Mathf.Min((Time.time - jumpTimeStart) * 3, 1.0f);
+                float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
                 if (elapsedTime == 1.0f)
                 {
                     jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
@@ -142,6 +143,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void PlayerRotate()
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (movement != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.2f);
+        }
+    }
+
     private void PlayerJump()
     {
         jumpTimeStart = Time.time;
@@ -168,11 +179,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerRelease()
     {
-        if (nearPullObject != null)
-        {
-            nearPullObject.transform.parent = null;
-        }
         grabbing = false;
+        if (nearPullObject == null)
+            return;
+
+        nearPullObject.transform.parent = null;
 
         nearPullObject.GetComponent<Rigidbody>().useGravity = true;
         nearPullObject.GetComponent<Rigidbody>().constraints = grabObjConstraints;
@@ -181,10 +192,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //collision checks
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
-            //if (!onGround)
-            //  currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+            if (!onGround)
+              currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
             rb.useGravity = true;
             this.transform.parent = collision.transform;
@@ -213,11 +224,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay (Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
+        {
+            onGround = true;
+            rb.useGravity = true;
+        }
+    }
+
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
-            //onGround = false;
+            if (jumpEnvelope != JumpEnvelope_t.jmpATTACK)
+                jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
+
+            onGround = false;
             this.transform.parent = null;
         }
 

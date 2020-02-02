@@ -15,6 +15,9 @@ public class PlayerStatsScript : MonoBehaviour
     private float airTime;
     PlayerController playerController;
 
+    Vector3 lastCheckPoint;
+    public float respawnHeight = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class PlayerStatsScript : MonoBehaviour
         ResetAirTime();
 
         playerController = gameObject.GetComponent<PlayerController>();
+        lastCheckPoint = transform.position;
     }
 
     private void Update()
@@ -83,5 +87,19 @@ public class PlayerStatsScript : MonoBehaviour
     public void ResetAirTime()
     {
         airTime = 0.0f;
+    }
+
+    public void FallRespawn()
+    {
+        transform.position = lastCheckPoint;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Ground"))
+        {
+            lastCheckPoint = transform.position;
+            lastCheckPoint.y += respawnHeight;
+        }
     }
 }
