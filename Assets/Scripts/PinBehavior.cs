@@ -23,4 +23,11 @@ public class PinBehavior : MonoBehaviour
             }
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Ground"))
+        {
+            gameObject.transform.parent = collision.gameObject.transform;
+        }
+    }
 }
