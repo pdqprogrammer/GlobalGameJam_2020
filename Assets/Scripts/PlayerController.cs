@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         switch (jumpEnvelope)
         {
             case JumpEnvelope_t.jmpATTACK:
-                float elapsedTime = Mathf.Min((Time.time - jumpTimeStart) * 3, 1.0f);
+                float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
                 if (elapsedTime == 1.0f)
                 {
                     jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
@@ -179,8 +179,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerRelease()
     {
-        nearPullObject.transform.parent = null;
         grabbing = false;
+        if (nearPullObject == null)
+            return;
+
+        nearPullObject.transform.parent = null;
 
         nearPullObject.GetComponent<Rigidbody>().useGravity = true;
         nearPullObject.GetComponent<Rigidbody>().constraints = grabObjConstraints;
@@ -189,7 +192,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //collision checks
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
             //if (!onGround)
             //  currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
@@ -221,9 +224,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay (Collision collision)
+    {
+    }
+
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
             //onGround = false;
             this.transform.parent = null;
