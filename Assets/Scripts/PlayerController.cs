@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
             PlayerJump();
         }
 
-        if (Input.GetButtonDown ("Grab") && nearPullObject != null)
+        if (Input.GetButtonDown("Grab") && nearPullObject != null)
         {
             PlayerGrab();
 
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
             nearPullObject.transform.position = nearPullPos;
         }
 
-        if (Input.GetButtonUp ("Grab") && grabbing)
+        if (Input.GetButtonUp("Grab") && grabbing)
         {
             PlayerRelease();
         }
@@ -86,44 +86,44 @@ public class PlayerController : MonoBehaviour
 
         switch (jumpEnvelope)
         {
-        case JumpEnvelope_t.jmpATTACK:
-            float elapsedTime = Mathf.Min ((Time.time - jumpTimeStart) * 3, 1.0f);
-            if (elapsedTime == 1.0f)
-            {
-                jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
+            case JumpEnvelope_t.jmpATTACK:
+                float elapsedTime = Mathf.Min((Time.time - jumpTimeStart) * 3, 1.0f);
+                if (elapsedTime == 1.0f)
+                {
+                    jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
 
-                jumpFallSpeed = 0.0f;
-            }
+                    jumpFallSpeed = 0.0f;
+                }
 
-            Vector3 startPos = transform.position;
-            startPos.y = jumpStartY;
+                Vector3 startPos = transform.position;
+                startPos.y = jumpStartY;
 
-            Vector3 endPos = transform.position;
-            endPos.y = jumpApexY;
+                Vector3 endPos = transform.position;
+                endPos.y = jumpApexY;
 
-            transform.position = Vector3.Lerp (startPos, endPos, elapsedTime);
-            break;
-        case JumpEnvelope_t.jmpFALL:
-            if (onGround)
+                transform.position = Vector3.Lerp(startPos, endPos, elapsedTime);
                 break;
+            case JumpEnvelope_t.jmpFALL:
+                if (onGround)
+                    break;
 
-            jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
-            goto case JumpEnvelope_t.jmpSUSTAIN;
-        case JumpEnvelope_t.jmpSUSTAIN:
-            if (onGround)
+                jumpFallSpeed += Time.deltaTime * jumpFallAcceleration / 2;
+                goto case JumpEnvelope_t.jmpSUSTAIN;
+            case JumpEnvelope_t.jmpSUSTAIN:
+                if (onGround)
+                    break;
+                else
+                    jumpFallSpeed += Time.deltaTime * jumpFallAcceleration / 2;
+
+
+                // stop half speed drop
+                if (!Input.GetButton("Jump"))
+                {
+                    jumpEnvelope = JumpEnvelope_t.jmpFALL;
+                }
+
+                transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
-            else
-                jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
-
-
-            // stop half speed drop
-            if (!Input.GetButton ("Jump"))
-            {
-                jumpEnvelope = JumpEnvelope_t.jmpFALL;
-            }
-
-            transform.position -= new Vector3 (0, jumpFallSpeed, 0);
-            break;
         }
     }
 
@@ -134,11 +134,11 @@ public class PlayerController : MonoBehaviour
             Vector3 reducedAirSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * (playerSpeed * 0.05f);
 
             rb.velocity += reducedAirSpeed;
-            rb.velocity = Vector3.ClampMagnitude (rb.velocity, playerSpeed * currSlideMultiplier);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, playerSpeed * currSlideMultiplier);
         }
         else
         {
-            rb.velocity = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
+            rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
         }
     }
 
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Ground"))
         {
             //if (!onGround)
-              //  currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+            //  currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
             rb.useGravity = true;
             this.transform.parent = collision.transform;
@@ -247,5 +247,10 @@ public class PlayerController : MonoBehaviour
             }
             onSlic = false;
         }
+    }
+
+    public bool InAir()
+    {
+        return !onGround;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent (typeof(PlayerController))]
 public class PlayerStatsScript : MonoBehaviour
 {
     public int playerMaxHealth = 3;
@@ -11,10 +12,16 @@ public class PlayerStatsScript : MonoBehaviour
     private float currInvincibleTime = 0.0f;
     public float maxInvincibleTime = 2.0f;
 
+    private float airTime;
+    PlayerController playerController;
+
     // Start is called before the first frame update
     void Start()
     {
         ResetHealth();
+        ResetAirTime();
+
+        playerController = gameObject.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -30,6 +37,12 @@ public class PlayerStatsScript : MonoBehaviour
 
                 Debug.Log("No Longer Invincible.");
             }
+        }
+
+
+        if (playerController.InAir())
+        {
+            airTime += Time.deltaTime;
         }
     }
 
@@ -60,5 +73,15 @@ public class PlayerStatsScript : MonoBehaviour
     public void ResetHealth()
     {
         currPlayerHealth = playerMaxHealth;
+    }
+
+    public float GetAirTimer()
+    {
+        return airTime;
+    }
+
+    public void ResetAirTime()
+    {
+        airTime = 0.0f;
     }
 }

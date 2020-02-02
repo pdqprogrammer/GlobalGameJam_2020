@@ -10,6 +10,7 @@ TagManager:
   - Slider
   - MovePoints
   - BounceObject
+  - Pin
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Terrain
+  - MapElements
   - 
   - 
   - 
