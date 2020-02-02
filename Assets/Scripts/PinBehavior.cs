@@ -6,10 +6,10 @@ public class PinBehavior : MonoBehaviour
 {
     Animator anim;
     
-    public void Bounce()
+    public void Bounce(bool doBounce)
     {
         anim = gameObject.GetComponent<Animator>();
-        anim.SetBool("bounce", true);
+        anim.SetBool("bounce", doBounce);
         
     }
 
@@ -17,7 +17,18 @@ public class PinBehavior : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            anim.SetBool("bounce", false);
+            if (anim.GetBool("bounce") != false)
+            {
+                anim.SetBool("bounce", false);
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Ground"))
+        {
+            gameObject.transform.parent = collision.gameObject.transform;
         }
     }
 }

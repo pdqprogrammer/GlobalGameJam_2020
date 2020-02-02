@@ -9,6 +9,8 @@ public class SpringBehavior : MonoBehaviour
     GameObject Pin;
     GameObject Spring;
 
+    public bool doThing;
+
     private void OnTriggerEnter(Collider other)
     {
         if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
@@ -28,7 +30,13 @@ public class SpringBehavior : MonoBehaviour
                 Destroy(Pin);
                 hiddenPin.SetActive(true);
 
-                hiddenPin.GetComponent<PinBehavior>().Bounce();
+                hiddenPin.GetComponent<PinBehavior>().Bounce(true);
+                Debug.Log("DO THE THING");
+                if (doThing)
+                {
+                    gameObject.GetComponent<DoThing>().TiggerTheThings();
+                    doThing = true;
+                }
             }
         }
     }
@@ -52,7 +60,13 @@ public class SpringBehavior : MonoBehaviour
                 Destroy(Pin);
                 hiddenPin.SetActive(true);
 
-                hiddenPin.GetComponent<PinBehavior>().Bounce();
+                hiddenPin.GetComponent<PinBehavior>().Bounce(false);
+                Debug.Log("DO THE THING");
+                if (doThing)
+                {
+                    gameObject.GetComponent<DoThing>().TiggerTheThings();
+                    doThing = true;
+                }
             }
         }
     }
