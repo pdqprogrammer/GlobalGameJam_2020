@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
+            rb.velocity = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
         }
     }
 
@@ -207,10 +207,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Ground"))
         {
-            if (!onGround)
-                currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
-            onGround = true;
-            rb.useGravity = true;
+            //onGround = false;
             this.transform.parent = null;
         }
 
