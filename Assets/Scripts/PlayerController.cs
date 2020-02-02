@@ -179,8 +179,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerRelease()
     {
-        nearPullObject.transform.parent = null;
         grabbing = false;
+        if (nearPullObject == null)
+            return;
+
+        nearPullObject.transform.parent = null;
 
         nearPullObject.GetComponent<Rigidbody>().useGravity = true;
         nearPullObject.GetComponent<Rigidbody>().constraints = grabObjConstraints;
@@ -219,6 +222,10 @@ public class PlayerController : MonoBehaviour
         {
             PlayerJump();
         }
+    }
+
+    private void OnCollisionStay (Collision collision)
+    {
     }
 
     private void OnCollisionExit(Collision collision)
