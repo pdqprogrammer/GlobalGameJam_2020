@@ -7,11 +7,6 @@ using UnityEngine;
 public class EnemyMovementScript : MonoBehaviour
 {
     public float enemySpeed = 3.0f;
-    public float changeDirectionTime = 3.0f;
-    public float rotationSpeed = 3.0f;
-
-    public bool isRotating = false;
-
     private float defaultY;
 
     public GameObject[] MovePoints;
@@ -50,6 +45,16 @@ public class EnemyMovementScript : MonoBehaviour
 
             if (currMovePoint >= MovePoints.Length)
                 currMovePoint = 0;
+
+            MoveTowardObject = MovePoints[currMovePoint];
+        }
+
+        if (other.gameObject.tag.Equals("PullableOBject"))
+        {
+            currMovePoint--;
+
+            if (currMovePoint < 0)
+                currMovePoint = MovePoints.Length - 1;
 
             MoveTowardObject = MovePoints[currMovePoint];
         }
