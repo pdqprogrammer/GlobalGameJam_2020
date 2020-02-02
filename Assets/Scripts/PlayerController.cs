@@ -92,15 +92,22 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.Lerp (startPos, endPos, elapsedTime);
             break;
         case JumpEnvelope_t.jmpFALL:
+            if (onGround)
+                break;
+
             jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
             goto case JumpEnvelope_t.jmpSUSTAIN;
         case JumpEnvelope_t.jmpSUSTAIN:
-            jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
             if (onGround)
             {
                 rb.useGravity = true;
                 break;
             }
+            else
+            {
+                jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
+            }
+
 
             // stop half speed drop
             if (!Input.GetButton ("Jump"))
@@ -115,7 +122,17 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
+        if (!onGround)
+        {
+            Vector3 reducedAirSpeed = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * (playerSpeed * 0.05f);
+
+            rb.velocity += reducedAirSpeed;
+            rb.velocity = Vector3.ClampMagnitude (rb.velocity, playerSpeed);
+        }
+        else
+        {
+            rb.velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * playerSpeed * currSlideMultiplier;
+        }
     }
 
     private void PlayerJump()
