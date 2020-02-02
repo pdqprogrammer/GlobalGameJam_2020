@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8275046053095119076}
   - component: {fileID: 8275046053095119086}
   - component: {fileID: 8275046053231699525}
+  - component: {fileID: 1158682678}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -106,7 +107,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.5
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -130,3 +131,16 @@ MonoBehaviour:
   jumpFallAcceleration: 0.3
   maxSlideMultiplier: 5
   currSlideMultiplier: 1
+--- !u!114 &1158682678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8275046053095119079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbecc989c8292b498b6cf0c2f8215e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMaxHealth: 3

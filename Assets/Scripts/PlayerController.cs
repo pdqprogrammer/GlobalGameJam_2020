@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public float maxSlideMultiplier = 2.0f;
     public float currSlideMultiplier = 1.0f;
 
+    private PlayerStatsScript playerStats;
+
     enum JumpEnvelope_t
     {
         jmpATTACK,
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private float jumpFallSpeed = 0;
 
     Rigidbody rb;
+    RigidbodyConstraints grabObjConstraints;
 
     //
 
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
+        playerStats = gameObject.GetComponent<PlayerStatsScript>();
     }
 
     // Update is called once per frame
@@ -151,6 +155,8 @@ public class PlayerController : MonoBehaviour
         nearPullObject.transform.parent = this.transform;
         grabbing = true;
         nearPullObject.GetComponent<Rigidbody>().useGravity = false;
+        grabObjConstraints = nearPullObject.GetComponent<Rigidbody>().constraints;
+        nearPullObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         Vector3 nearObjectPosition = nearPullObject.transform.position;
 
@@ -163,6 +169,7 @@ public class PlayerController : MonoBehaviour
         grabbing = false;
 
         nearPullObject.GetComponent<Rigidbody>().useGravity = true;
+        nearPullObject.GetComponent<Rigidbody>().constraints = grabObjConstraints;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -174,7 +181,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Enemy"))
         {
             //add behavior for hits
-            Debug.Log("Touched the enemy");
+            playerStats.DamagePlayer();
+            Debug.Log("Touched the enemy. Lives: " + playerStats.GetHealth());
         }
 
         //check if touching pullable object
