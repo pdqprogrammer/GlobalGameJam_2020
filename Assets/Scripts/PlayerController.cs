@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
             if (jumpEnvelope != JumpEnvelope_t.jmpATTACK)
                 jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
 
-            onGround = false;
+            //onGround = false;
             this.transform.parent = null;
         }
 
