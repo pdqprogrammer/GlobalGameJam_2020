@@ -104,14 +104,9 @@ public class PlayerController : MonoBehaviour
             goto case JumpEnvelope_t.jmpSUSTAIN;
         case JumpEnvelope_t.jmpSUSTAIN:
             if (onGround)
-            {
-                rb.useGravity = true;
                 break;
-            }
             else
-            {
                 jumpFallSpeed += Time.deltaTime * jumpFallAcceleration/2;
-            }
 
 
             // stop half speed drop
@@ -181,6 +176,8 @@ public class PlayerController : MonoBehaviour
             if (!onGround)
                 currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
             onGround = true;
+            rb.useGravity = true;
+            this.transform.parent = collision.transform;
         }
 
         if (collision.gameObject.tag.Equals("Enemy"))
@@ -208,6 +205,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        if (collision.gameObject.tag.Equals("Ground"))
+        {
+            if (!onGround)
+                currSlideMultiplier = onSlic ? maxSlideMultiplier : 1.0f;
+            onGround = true;
+            rb.useGravity = true;
+            this.transform.parent = null;
+        }
+
         //check if not touching pullable object when not pulling
         if (collision.gameObject.tag.Equals("PullableObject"))
         {
