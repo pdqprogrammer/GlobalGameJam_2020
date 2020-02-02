@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72123030}
   m_LocalRotation: {x: 0.33460093, y: -0.19062862, z: 0.069310546, w: 0.92027116}
-  m_LocalPosition: {x: 0.84, y: 5.653289, z: -4.06}
+  m_LocalPosition: {x: 2.05, y: 5.653289, z: -4.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2157281805739442007}
@@ -59,7 +59,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 2157281805739442009}
   - component: {fileID: 2157281805739442002}
   - component: {fileID: 2037986392}
+  - component: {fileID: 2037986388}
   m_Layer: 0
   m_Name: Player_Temp
   m_TagString: Player
@@ -227,3 +228,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2037986388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2157281805739442011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe8e2dd84a608940a17422270d625a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 3
+  jumpForce: 3
+  gravityModifier: 10
+  onGround: 1
+  jumpFallAcceleration: 0.3
+  maxSlideMultiplier: 2
+  currSlideMultiplier: 1
