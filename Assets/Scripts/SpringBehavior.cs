@@ -11,7 +11,7 @@ public class SpringBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
+        if (Input.GetButton("Grab"))
         {
             Debug.Log("YOURE HOLDING AN OBJECT");
             if (other.gameObject.tag == "PullableObject")
@@ -35,7 +35,7 @@ public class SpringBehavior : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetButton("Grab") || Input.GetKey(KeyCode.P))
+        if (Input.GetButton("Grab"))
         {
             Debug.Log("YOURE HOLDING AN OBJECT");
             if (other.gameObject.tag == "PullableObject")

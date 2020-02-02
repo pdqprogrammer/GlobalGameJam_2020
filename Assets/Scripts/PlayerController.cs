@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         jmpATTACK,
         jmpSUSTAIN,
         jmpFALL,
-        jmpGROUNDED,
+        jmpLEDGEDROP,
     };
 
     private JumpEnvelope_t jumpEnvelope = JumpEnvelope_t.jmpFALL;
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && !grabbing)
         {
-            PlayerJump();
+            PlayerJump (jumpForce);
         }
 
         if (Input.GetButtonDown("Grab") && nearPullObject != null)
@@ -125,6 +125,10 @@ public class PlayerController : MonoBehaviour
 
                 transform.position -= new Vector3(0, jumpFallSpeed, 0);
                 break;
+            case JumpEnvelope_t.jmpLEDGEDROP:
+                jumpFallSpeed += Time.deltaTime * jumpFallAcceleration;
+                transform.position -= new Vector3(0, jumpFallSpeed, 0);
+                break;
         }
     }
 
@@ -153,11 +157,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerJump()
+    public void PlayerJump (float jumpheight)
     {
         jumpTimeStart = Time.time;
         jumpStartY = transform.position.y;
-        jumpApexY = jumpStartY + jumpForce;
+        jumpApexY = jumpStartY + jumpheight;
         jumpEnvelope = JumpEnvelope_t.jmpATTACK;
         rb.useGravity = false;
 
@@ -220,7 +224,7 @@ public class PlayerController : MonoBehaviour
         //
         if (collision.gameObject.tag.Equals("BounceObject"))
         {
-            PlayerJump();
+            PlayerJump (jumpForce);
         }
     }
 
@@ -230,6 +234,8 @@ public class PlayerController : MonoBehaviour
         {
             onGround = true;
             rb.useGravity = true;
+
+            jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
         }
     }
 
@@ -238,8 +244,9 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals ("Untagged"))
         {
             if (jumpEnvelope != JumpEnvelope_t.jmpATTACK)
-                jumpEnvelope = JumpEnvelope_t.jmpSUSTAIN;
+                jumpEnvelope = JumpEnvelope_t.jmpLEDGEDROP;
 
+            rb.useGravity = false;
             //onGround = false;
             this.transform.parent = null;
         }
